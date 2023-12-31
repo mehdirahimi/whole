@@ -3,6 +3,5 @@ spring:
     name: licensing-service
   profiles:
     active: dev
-  cloud:
-    config:
-      uri: http://localhost:8081
+  config:
+    import: optional:configserver:http://localhost:8081
