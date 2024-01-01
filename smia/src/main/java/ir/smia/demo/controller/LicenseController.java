@@ -1,7 +1,9 @@
 package ir.smia.demo.controller;
 
+import ir.smia.demo.config.PropertiesConfig;
 import ir.smia.demo.model.License;
 import ir.smia.demo.service.LicenseService;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,14 +12,22 @@ import org.springframework.web.bind.annotation.*;
 public class LicenseController {
 
     private final LicenseService licenseService;
+    private final PropertiesConfig propertiesConfig;
 
-    public LicenseController(LicenseService licenseService) {
+    public LicenseController(LicenseService licenseService, PropertiesConfig propertiesConfig) {
         this.licenseService = licenseService;
+        this.propertiesConfig = propertiesConfig;
     }
 
-    @GetMapping("/{licenseId}")
+    @GetMapping(value = "/{licenseId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<License> getLicense(@PathVariable String orgId, @PathVariable String licenseId) {
         License license = licenseService.getLicense(licenseId, orgId);
+
+        String test = propertiesConfig.getProperty();
+
+        System.out.println(test);
+
+        license.setLicenseId(test);
 
         return ResponseEntity.ok(license);
     }
