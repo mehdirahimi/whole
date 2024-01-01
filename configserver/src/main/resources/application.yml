@@ -2,11 +2,14 @@ spring:
   application:
     name: config-server
   profiles:
-    active: native
+    active: native, git
   cloud:
     config:
       server:
         native:
           search-locations: classpath:/config
+        git:
+          uri: https://github.com/mehdirahimi/whole.git
+          search-paths: /configs
 server:
   port: 8081
