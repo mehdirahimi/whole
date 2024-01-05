@@ -1,9 +1,6 @@
-example:
-  property:
-    EUREKA
-
 server:
-  port: 8090
+  port: 8099
+
 eureka:
   instance:
     hostname: localhost
@@ -12,7 +9,6 @@ eureka:
     registerWithEureka: false
     fetchRegistry: false
     serviceUrl:
-      defaultZone:
-        http://${eureka.instance.hostname}:${server.port}/eureka/
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
   server:
     waitTimeInMsWhenSyncEmpty: 5
