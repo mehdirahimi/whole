@@ -1,23 +1,7 @@
 spring:
   application:
     name: eureka-server
+  profiles:
+    active: dev
   config:
-    import: optional:configserver:http://localhost:8081
-  cloud:
-    config:
-      enabled: false
-
-server:
-  port: 8099
-
-eureka:
-  instance:
-    hostname: localhost
-    preferIpAddress: true
-  client:
-    registerWithEureka: false
-    fetchRegistry: false
-    serviceUrl:
-      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
-  server:
-    waitTimeInMsWhenSyncEmpty: 5
+    import: optional:configserver:http://localhost:8080
