@@ -2,7 +2,7 @@ spring:
   application:
     name: config-server
   profiles:
-    active: native, git
+    active: git
   cloud:
     config:
       server:
@@ -13,3 +13,5 @@ spring:
           search-paths: /configs
 server:
   port: 8081
+encrypt:
+  key: 123@abc!p[]#cvb%yui&iop^e
