@@ -1,18 +1,30 @@
 package ir.smia.demo.service;
 
+import ir.smia.demo.dto.OrganizationDTO;
 import ir.smia.demo.model.License;
+import ir.smia.demo.service.client.OrganizationDiscoveryClient;
 import org.springframework.stereotype.Service;
 
 import java.util.Random;
 
 @Service
 public class LicenseService {
-    public License getLicense(String licenseId, String organizationId){
+
+    private final OrganizationDiscoveryClient discoveryClient;
+
+    public LicenseService(OrganizationDiscoveryClient discoveryClient) {
+        this.discoveryClient = discoveryClient;
+    }
+
+    public License getLicense(String licenseId, String organizationId) {
+
+        OrganizationDTO org = discoveryClient.getOrg(organizationId);
+
         License license = new License();
         license.setId(new Random().nextInt(1000));
         license.setLicenseId(licenseId);
-        license.setOrganizationId(organizationId);
-        license.setDescription("Software product");
+        license.setOrganizationId(org.getId());
+        license.setDescription("Software product" + org.getName());
         license.setProductName("Ostock");
         license.setLicenseType("full");
         return license;
