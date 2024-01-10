@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
 @RefreshScope
-@EnableDiscoveryClient
+//@EnableDiscoveryClient
 @SpringBootApplication
 //@EnableFeignClients
 public class DemoApplication {
