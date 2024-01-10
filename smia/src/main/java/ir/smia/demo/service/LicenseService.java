@@ -2,7 +2,7 @@ package ir.smia.demo.service;
 
 import ir.smia.demo.dto.OrganizationDTO;
 import ir.smia.demo.model.License;
-import ir.smia.demo.service.client.OrganizationDiscoveryClient;
+import ir.smia.demo.service.client.OrganizationFeignClient;
 import org.springframework.stereotype.Service;
 
 import java.util.Random;
@@ -10,15 +10,15 @@ import java.util.Random;
 @Service
 public class LicenseService {
 
-    private final OrganizationDiscoveryClient discoveryClient;
+    private final OrganizationFeignClient organizationFeignClient;
 
-    public LicenseService(OrganizationDiscoveryClient discoveryClient) {
-        this.discoveryClient = discoveryClient;
+    public LicenseService(OrganizationFeignClient organizationFeignClient) {
+        this.organizationFeignClient = organizationFeignClient;
     }
 
     public License getLicense(String licenseId, String organizationId) {
 
-        OrganizationDTO org = discoveryClient.getOrg(organizationId);
+        OrganizationDTO org = organizationFeignClient.getOrg(organizationId);
 
         License license = new License();
         license.setId(new Random().nextInt(1000));
