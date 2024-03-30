@@ -1,12 +1,16 @@
 package ir.smia.demo.controller;
 
+import io.github.resilience4j.circuitbreaker.CallNotPermittedException;
 import ir.smia.demo.config.PropertiesConfig;
 import ir.smia.demo.model.License;
 import ir.smia.demo.service.LicenseService;
+import ir.smia.demo.utils.UserContextHolder;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RestController
 @RequestMapping("/v1/organization/{orgId}/license")
 public class LicenseController {
@@ -29,7 +33,22 @@ public class LicenseController {
 
         license.setLicenseId(test);
 
+        log.debug("LicenseServiceController Correlation id: {}", UserContextHolder.getContext().getCorrelationId());
+
         return ResponseEntity.ok(license);
+    }
+
+    @GetMapping(value = "/circuit-breaker", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> testCircuitBreaker(@PathVariable String orgId) {
+        System.out.println("org-id: " + orgId);
+
+        try {
+            licenseService.testCircuitBreaker();
+        } catch (CallNotPermittedException exception) {
+            System.out.println("CircuitBreaker is OPEN.");
+        }
+
+        return ResponseEntity.ok("OK");
     }
 
     @PutMapping
