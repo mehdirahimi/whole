@@ -1,0 +1,30 @@
+server:
+  port: 8070
+
+eureka:
+  instance:
+    server:
+      hostname: localhost
+      port: 8090
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://${eureka.instance.server.hostname}:${eureka.instance.server.port}/eureka/
+
+management:
+  endpoint:
+    gateway:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: gateway,health
+
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lowerCaseServiceId: true
