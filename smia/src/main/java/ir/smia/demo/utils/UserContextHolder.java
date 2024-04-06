@@ -18,6 +18,7 @@ public final class UserContextHolder {
 
     public static void setContext(UserContext context) {
         Assert.notNull(context, "Only not-null UserContext instances are permitted!");
+        userContext.set(context);
     }
 
     public static UserContext createEmptyContext() {

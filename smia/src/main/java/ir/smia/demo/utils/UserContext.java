@@ -13,8 +13,8 @@ public class UserContext {
     public static final String USER_ID          = "tmx-user-id";
     public static final String ORGANIZATION_ID  = "tmx-organization-id";
 
-    private String correlationId= "";
-    private String authToken= "";
+    private String correlationId = "";
+    private String authToken = "";
     private String userId = "";
     private String organizationId = "";
 
