@@ -4,6 +4,7 @@ import ir.smia.organization.model.Organization;
 import ir.smia.organization.service.OrganizationService;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,6 +17,7 @@ public class OrganizationController {
         this.organizationService = organizationService;
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping(value = "/{orgId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Organization> getOrganization(@PathVariable String orgId) {
         Organization organization = organizationService.getOrganization(orgId);

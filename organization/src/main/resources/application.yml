@@ -5,9 +5,34 @@ spring:
     active: dev
   config:
     import: optional:configserver:http://localhost:8080
+  # Security Configuration
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8989/realms/myrealm
+          jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
+
 management:
   endpoints:
     web:
       exposure:
         include: env,health,refresh,info
+
+keycloak:
+  realm: myrealm
+  auth-server-url: http://localhost:8989/auth
+  ssl-required: external
+  resource: myclient # client
+  credentials:
+    secret: CJCT3fnYcQf50laMkrFGdmA8lB6wMXFv # client secret
+  use-resource-role-mappings: true
+  bearer-only: true
+
+# JWT Configuration
+jwt:
+  auth:
+    converter:
+      resource-id: myclient
+      principal-attribute: principal_username
 
