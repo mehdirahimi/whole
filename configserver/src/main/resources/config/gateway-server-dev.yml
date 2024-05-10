@@ -24,6 +24,9 @@ management:
 spring:
   cloud:
     gateway:
+      routes:
+        filters:
+        - RemoveRequestHeader=Cookie,Set-Cookie
       discovery:
         locator:
           enabled: true
