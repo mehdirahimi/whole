@@ -10,6 +10,7 @@ import java.util.UUID;
 @Component
 public class FilterUtils {
     public static final String CORRELATION_ID = "tmx-correlation-id";
+    public static final String AUTH_TOKEN = "Authorization";
     public String getCorrelationId(HttpHeaders httpHeaders) {
         List<String> headers = httpHeaders.get(CORRELATION_ID);
 
@@ -33,5 +34,14 @@ public class FilterUtils {
                         .header(CORRELATION_ID, correlationId)
                         .build())
                 .build();
+    }
+
+    public String getAuthToken(HttpHeaders httpHeaders) {
+        List<String> header = httpHeaders.get(AUTH_TOKEN);
+        if (header != null) {
+            return header.stream().findFirst().get();
+        }
+
+        return null;
     }
 }
